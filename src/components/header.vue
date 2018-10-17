@@ -1,10 +1,12 @@
 <template>
-     <div class="header">
+    <div class="header-heighe-90">
+        <div class="header">
             <div class="return-icon" @click="this.returnLastPage">
                 <img src="../style/img/drawable-hdpi/返回_btn.png">
             </div>
-            <span>{{title}}</span>
+            <span>{{title||this.$route.meta.title}}</span>
         </div>
+    </div>
 </template>
 <script>
 export default {
@@ -26,7 +28,14 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.header-heighe-90{
+    height: 0.9rem;
+}
     .header{
+        position: fixed;
+        top:0;
+        right: 0;
+        left: 0;
         background-color: #c50206;
         display: flex;
         height: 0.9rem;

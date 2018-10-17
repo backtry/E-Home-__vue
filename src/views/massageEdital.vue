@@ -1,21 +1,25 @@
 <template>
     <div class="message-edital-box">
-       <HeaderC :title='title1'></HeaderC>
+        <HeaderC :title='title'></HeaderC>
         <div class="item" v-for="(item,index) in NewsData" :key="index">
             <div class="img-box">
                 <img :src="item.pic" class="img">
             </div>
-            <router-link to='/' class="text-box">
+            <router-link :to="{path:'/newsfile',query:{title:title,id:item.newsId}}" 
+                class="text-box">
                 <span class="title">{{item.title}}</span>
                 <div class="date">
                     <span>{{item.currentTime}}</span>
                     <div class="count">
-                        <div class="icon"></div>
-                        <!-- <img src="../style/img/drawable-hdpi/12-eye.png" class="icon"> -->
+                        <!-- <div class="icon"></div> -->
+                        <img src="../style/img/drawable-hdpi/12-eye.png" class="icon">
                         <span>{{item.count}}</span>
                     </div>
                 </div>
             </router-link>
+        </div>
+        <div class="edital-bottom-line">
+            <span>我是有底线的,喵~~~</span>
         </div>
     </div>
 </template>
@@ -23,20 +27,33 @@
 export default {
     data(){
         return{
-            title1:'信工新闻眼',
-            NewsData:[]
+            title:'信工新闻眼',
+            NewsData:[],
+            formData:{
+                page:1,
+                rows:10,
+                type:0
+            }
         }
     },
     methods:{
       getDate(){
-          this.$axios.fetch('get','/news/newsList.do').then(res=>{
+          this.$axios.get('/news/newsList.do',this.formData).then(res=>{
             this.NewsData = res.rows
             console.log(this.NewsData)
           })
-      }
+      },
+      getTitle(){
+            const titleM = this.$route.query.title
+            const id = this.$route.query.id
+            const type = this.$route.query.type
+            this.title = titleM
+            this.formData.type = type
+        }
     },
     created(){
         this.getDate()
+        this.getTitle()
     }
 }
 </script>
@@ -79,9 +96,14 @@ export default {
                 }
             }
             .text-box{
+                display: block;
                 font-size: 0.3rem;
                 margin-top: 0.2rem;
-                color: #000;
+                margin-right: 0.2rem;
+                color: rgba(0, 0, 0, 0.959);
+                display: flex;
+                flex-direction: column;
+                justify-content:space-between ;
                 flex: 1;
                 .title{
                     width: 100%;
@@ -91,15 +113,31 @@ export default {
                     color:#666;
                     display: flex;
                     justify-content: space-between;
+                    padding-bottom: 0.2rem;
                     .count{
                         display: flex;
                         .icon{
-                            width: 1rem;
-                            height: 1rem;
-                            background-color: #f00;
+                            display: block;
+                            width: 0.25rem;
+                            height: 0.15rem;
+                            margin-top: 0.1rem;
+                            margin-right: 0.05rem;
+                            opacity: 0.5;                           
                         }
                     }
                 }
+            }
+        }
+        .edital-bottom-line{
+            height: 0.9rem;
+            span{
+                font-size: 0.3rem;
+                display: block;
+                height: 0.9rem;
+                line-height: 0.9rem;
+                width: 100%;
+                text-align: center;
+                color: #666;
             }
         }
     }

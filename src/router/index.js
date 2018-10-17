@@ -32,6 +32,9 @@ export default new Router({
     {
       path: '/login',
       name:'login',
+      meta: {
+        title: ''
+      },
       component:()=>import('../views/login.vue')
     },
     {
@@ -43,6 +46,21 @@ export default new Router({
       path:'/newedital',
       name:'newedital',
       component:()=>import('../views/massageEdital.vue')
+    },
+    {
+      path:'/newsfile',
+      name:'newsfile',
+      component:()=>import('../views/newDetail.vue')
+    },
+    {
+      path:'/everpicture',
+      name:'everpicture',
+      component:()=>import('../views/everPicture.vue')
+    },
+    {
+      path:'/cloudinteractive',
+      name:'cloudinteractive',
+      component:()=>import('../views/cloudInteractive.vue')
     },
     {
       path:'/test',

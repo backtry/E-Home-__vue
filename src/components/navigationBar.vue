@@ -1,37 +1,41 @@
 <template>
     <div class="bottom-bar">
-            <div class="bottom-bar-item">
+            <div class="bottom-bar-item" :class="{active: index == 1}" @click="index = 1">
                 <router-link to="/home">
-                <div class="bgi-box1 mgl-54">
-                </div>
-                <div>
-                    <span>首页</span>
-                </div>
+                    <div class="bgi-box1 mgl-54">
+                    </div>
+                    <div>
+                        <span>首页</span>
+                    </div>
                 </router-link>
             </div>
-            <div class="bottom-bar-item">
-                <router-link to="/notice">
-                <div class="bgi-box2 mgl-54">
-                </div>
-                <div>
-                    <span>通知早知道</span>
-                </div>
+            <div class="bottom-bar-item" :class="{active: index == 2}" @click="index = 2">
+                <router-link :to="{path:'/notice',query:{title:'通知早知道',id:'123',type:'2'}}">
+                    <div class="bgi-box2 mgl-54">
+                    </div>
+                    <div>
+                        <span>通知早知道</span>
+                    </div>
                  </router-link>
             </div>
-            <div class="bottom-bar-item">
+            <div class="bottom-bar-item" :class="{active: index == 3}" @click="index = 3">
                 <router-link to="/personal">
-                <div class="bgi-box3 mgl-54">
-                </div>
-                <div>
-                    <span>我的党建</span>
-                </div>
+                    <div class="bgi-box3 mgl-54">
+                    </div>
+                    <div>
+                        <span>我的党建</span>
+                    </div>
                  </router-link>
             </div>
         </div>    
 </template>
 <script>
 export default {
-    
+    data() {
+        return {
+            index: 1
+        }
+    }
 }
 </script>
 <style  scoped lang="scss">
@@ -46,6 +50,7 @@ export default {
         font-size: 0.3rem;
         font-weight: 400;
         padding-bottom: 0.04rem;
+
         .bottom-bar-item{
             padding-top: 0.04rem;
             flex-grow: 1;
@@ -78,12 +83,11 @@ export default {
                 }
             }
         
-        .bottom-bar-item:hover{
+        .active{
+            border-top: 0.04rem solid rgb(221, 19, 19);;
             a{
                 color: #ef473a;
-            }
-            border-top: 0.04rem solid rgb(221, 19, 19);;
-            .bgi-box1{
+                    .bgi-box1{
                         width: 20px;
                         height: 20px;
                         background-image: url('../style/img/index/党_red.png');
@@ -101,6 +105,13 @@ export default {
                         background-image: url('../style/img/index/会员_red.png');
                         background-size: 20px 20px;
                     }
+            }
+        
+        }
+    }
+    .active {
+        a{
+            
         }
     }
 </style>

@@ -5,11 +5,16 @@
             <router-link to="/login">登录</router-link>    
         </div>
         <div class="container">
-            <swiper :options="swiperOption" class="swiper">
-                <swiper-slide class="swiper-slide">
-                    <img src="../style/img/swiper/swiper1.png" class="swiper-img">
-                    <span class="swiper-text">113253152</span></swiper-slide>
-                <swiper-slide class="swiper-slide">
+            <swiper :options="swiperOption" class="swiper" >
+                
+                    <swiper-slide class="swiper-slide"   v-for="(item,index) in swiperData" :key="index">
+                        <router-link :to="{path:'/newsfile',query:{title:'哪里来的',id:item.url}}">
+                            <img :src="item.imgUrl" class="swiper-img">
+                            <span class="swiper-text">{{item.title}}</span>
+                        </router-link>
+                    </swiper-slide>
+                
+                <!-- <swiper-slide class="swiper-slide">
                     <img src="../style/img/swiper/swiper2.png" class="swiper-img">
                     <span class="swiper-text">113253152</span></swiper-slide>
                 <swiper-slide class="swiper-slide">
@@ -17,25 +22,25 @@
                     <span class="swiper-text">113253152</span></swiper-slide>
                 <swiper-slide class="swiper-slide">
                     <img src="../style/img/swiper/swiper4.png" class="swiper-img">
-                    <span class="swiper-text">113253152</span></swiper-slide>
+                    <span class="swiper-text">113253152</span></swiper-slide> -->
 
                 <div class="swiper-pagination" slot="pagination"></div>
             </swiper> 
             <div class="table-cell-box">
                 <div class="table-cell-top clear-fix">
-                    <router-link to="/newedital">
+                    <router-link :to="{path:'/newedital',query:{title:'信工新闻眼',id:'123',type:'0'}}">
                         <img src="../style/img/icon_01.png" class="table-cell-img">
                         <div>
                             <span>信工新闻眼</span>
                         </div>
                     </router-link>
-                    <router-link to="/organiztionlife">
+                    <router-link :to="{path:'/organiztionlife'}">
                         <img src="../style/img/icon_03.png" class="table-cell-img">
                         <div>
                             <span>掌上组织生活</span>
                         </div>
                     </router-link>        
-                    <router-link to="/">
+                    <router-link to="/cloudinteractive">
                         <img src="../style/img/icon_05.png" class="table-cell-img">
                         <div>
                             <span>党员云互动</span>
@@ -43,13 +48,13 @@
                     </router-link>    
                 </div>
                 <div class="table-cell-top clearfix">
-                    <router-link to="/" >
+                    <router-link :to="{path:'/newedital',query:{title:'党建一点通',id:'123',type:'3'}}" >
                         <img src="../style/img/icon_04.png" class="table-cell-img">
                         <div >
                             <span>党建一点通</span>
                         </div>
                     </router-link>
-                    <router-link to="/">
+                    <router-link :to="{path:'/newedital',query:{title:'党员亮身份',id:'123',type:'5'}}" > <!-- type:5 --> 
                         <img src="../style/img/icon_06.png" class="table-cell-img">
                         <div>
                             <span>党员亮身份</span>
@@ -70,12 +75,12 @@
                 <div class="left"></div>
                 <div class="right">
                     <div class="item">
-                        <router-link to='/'></router-link>
-                        <router-link to='/'></router-link>
+                        <router-link :to="{path:'/newedital',query:{title:'制度建设',id:'123',type:'4'}}"></router-link>
+                        <router-link :to="{path:'/newedital',query:{title:'特色活动',id:'123',type:'1'}}"></router-link>
                     </div>
                     <div class="item">
-                        <router-link to='/'></router-link>
-                        <router-link to='/'></router-link>
+                        <router-link :to="{path:'/newedital',query:{title:'随时随地学',id:'123',type:'6'}}"></router-link>
+                        <router-link :to="{path:'/everpicture',query:{title:'随时随地拍',id:'123',type:'7'}}"></router-link>
                     </div>
                 </div>
             </div>      
@@ -95,13 +100,26 @@ export default {
         swiperOption: {
           pagination: {
             el: '.swiper-pagination',
-            dynamicBullets: true,
-          
+            // dynamicBullets: true,
           },
             autoplay:true,
-           
-        }
+        },
+        swiperForm:{
+            type:0
+        },
+        swiperData:[]
       }
+    },
+    methods:{
+        getSwiperData(){
+            this.$axios.get('carousel/carouselList.do',this.swiperForm).then(res=>{
+                console.log(res)
+                this.swiperData = res.rows
+            })
+        }
+    },
+    created(){
+        this.getSwiperData()
     }
   }
 </script>
@@ -166,7 +184,7 @@ export default {
                 
                 .swiper-pagination{
                     position: absolute;
-                    bottom: 12px;
+                    bottom: -0.04rem;
                 }
             }
             .table-cell-box{

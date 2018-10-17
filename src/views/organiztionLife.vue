@@ -10,10 +10,10 @@
             <img src="../style/img/timg.jpg" class="banner-img">
         </div>
         <div class="link-list">
-            <div class="item">
+            <router-link class="item" :to="{path:'/newedital',query:{title:'政治学习',id:'123',type:'8'}}">
                 <img src="../style/img/icon1.png">
                 <span>政治学习</span>
-            </div>
+            </router-link>
             <div class="item">
                 <img src="../style/img/icon2.png">
                 <span>思想汇报</span>
@@ -75,9 +75,14 @@ methods:{
         display: flex;
         flex-wrap: wrap;
         padding-top: 0.2rem;
+        a{
+            text-decoration: none;
+
+        }
         .item{
             width: 2rem;
             padding: 0.25rem;
+            display: block;
             img{
                 display: block;
                 width: 1.7rem;
