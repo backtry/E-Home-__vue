@@ -1,23 +1,23 @@
 <template>
     <div class="message-edital-box">
         <HeaderC :title='title'></HeaderC>
-        <div class="item" v-for="(item,index) in NewsData" :key="index">
-            <div class="img-box">
-                <img :src="item.pic" class="img">
-            </div>
-            <router-link :to="{path:'/newsfile',query:{title:title,id:item.newsId}}" 
-                class="text-box">
-                <span class="title">{{item.title}}</span>
-                <div class="date">
-                    <span>{{item.currentTime}}</span>
-                    <div class="count">
-                        <!-- <div class="icon"></div> -->
-                        <img src="../style/img/drawable-hdpi/12-eye.png" class="icon">
-                        <span>{{item.count}}</span>
-                    </div>
+            <div class="item" v-for="(item,index) in NewsData" :key="index">
+                <div class="img-box">
+                    <img :src="item.pic" class="img">
                 </div>
-            </router-link>
-        </div>
+                <router-link :to="{path:'/newsfile',query:{title:title,id:item.newsId}}" 
+                    class="text-box">
+                    <span class="title">{{item.title}}</span>
+                    <div class="date">
+                        <span>{{item.currentTime}}</span>
+                        <div class="count">
+                            <!-- <div class="icon"></div> -->
+                            <img src="../style/img/drawable-hdpi/12-eye.png" class="icon">
+                            <span>{{item.count}}</span>
+                        </div>
+                    </div>
+                </router-link>
+            </div>
         <div class="edital-bottom-line">
             <span>我是有底线的,喵~~~</span>
         </div>
@@ -33,23 +33,30 @@ export default {
                 page:1,
                 rows:10,
                 type:0
-            }
+            },
+            startX:0
         }
     },
     methods:{
-      getDate(){
-          this.$axios.get('/news/newsList.do',this.formData).then(res=>{
-            this.NewsData = res.rows
-            console.log(this.NewsData)
-          })
-      },
-      getTitle(){
+        getDate(){
+            this.$store.commit("LOADING",true)
+            this.$axios.get('/news/newsList.do',this.formData).then(res=>{
+                [this.NewsData] = [...this.NewsData,res.rows] 
+                console.log(this.NewsData)
+                this.$store.commit("LOADING",false)
+            })
+        },
+        getTitle(){
             const titleM = this.$route.query.title
             const id = this.$route.query.id
             const type = this.$route.query.type
             this.title = titleM
             this.formData.type = type
-        }
+        },
+        
+    },
+    watch:{
+        
     },
     created(){
         this.getDate()
@@ -114,13 +121,24 @@ export default {
                     display: flex;
                     justify-content: space-between;
                     padding-bottom: 0.2rem;
+                    span{
+                        height: 0.32rem;
+                        line-height: 0.32rem;
+                        font-size: 0.1rem;
+                    }
                     .count{
                         display: flex;
+                        align-items: center;
+                        span{
+                        height: 0.32rem;
+                        line-height: 0.32rem;
+                        font-size: 0.1rem;
+                        }
                         .icon{
                             display: block;
                             width: 0.25rem;
                             height: 0.15rem;
-                            margin-top: 0.1rem;
+                            
                             margin-right: 0.05rem;
                             opacity: 0.5;                           
                         }

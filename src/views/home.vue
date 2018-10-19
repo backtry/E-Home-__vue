@@ -1,10 +1,10 @@
 <template>
-    <div class="home-box">
+    <div class="home-p-box">
         <div class="header">
             <img src="../style/img/logo.png"  class="header-img">
             <router-link to="/login">登录</router-link>    
         </div>
-        <div class="container">
+        <div class="container-box">
             <swiper :options="swiperOption" class="swiper" >
                 
                     <swiper-slide class="swiper-slide"   v-for="(item,index) in swiperData" :key="index">
@@ -40,7 +40,7 @@
                             <span>掌上组织生活</span>
                         </div>
                     </router-link>        
-                    <router-link to="/cloudinteractive">
+                    <router-link :to=" this.$store.state.userData.username ? '/cloudinteractive' : '/login' ">
                         <img src="../style/img/icon_05.png" class="table-cell-img">
                         <div>
                             <span>党员云互动</span>
@@ -54,7 +54,7 @@
                             <span>党建一点通</span>
                         </div>
                     </router-link>
-                    <router-link :to="{path:'/newedital',query:{title:'党员亮身份',id:'123',type:'5'}}" > <!-- type:5 --> 
+                    <router-link :to="{path:computedPath,query:{title:'党员亮身份',id:'123',type:'5'}}" > <!-- type:5 --> 
                         <img src="../style/img/icon_06.png" class="table-cell-img">
                         <div>
                             <span>党员亮身份</span>
@@ -112,19 +112,33 @@ export default {
     },
     methods:{
         getSwiperData(){
+            this.$store.commit('LOADING',true)
             this.$axios.get('carousel/carouselList.do',this.swiperForm).then(res=>{
                 console.log(res)
+                this.$store.commit('LOADING',false)
                 this.swiperData = res.rows
             })
+        },
+        linkPath(){
+            if(this.$store.state.userData.username){
+                return('/newedital')
+            }else{
+                return('/login')
+            }
         }
     },
     created(){
         this.getSwiperData()
+    },
+    computed:{
+        computedPath() {
+            return this.$store.state.userData.username ? '/newedital' : '/login'
+        }
     }
   }
 </script>
 <style lang="scss" scoped>
-    .home-box{
+    .home-p-box{
         .header{
             position: fixed;
             top: 0;
@@ -136,27 +150,27 @@ export default {
             align-items: center;
             justify-content: space-between;
             background-color: #c50206;
-            height: 34px;
-            padding: 5px;
+            height: 0.68rem;
+            padding: 0.1rem;
             .header-img{
                 display: block;
                 margin: 0;
                 padding: 0;
-                height: 32px;
-                padding: 0 2px;
+                height: 0.64rem;
+                padding: 0 0.04rem;
             }
             a{
                 color: #fff;
-                font-size: 17px;
-                padding-right: 2px;
+                font-size: 0.3rem;
+                padding-right: 0.04rem;
             }
         }
-        .container{
-            margin-bottom: 46px;
-            padding-top: 44px;
+        .container-box{
+            
+            padding-top: 0.88rem;
             .swiper{
-                height: 225px;
-                padding-bottom: -1px;
+                height: 4.5rem;
+                
                 margin: 0;
                 width: 100%;
                 position: relative;
@@ -168,11 +182,11 @@ export default {
                     position: relative;
                     .swiper-text{
                         display: block;
-                        height: 31px;
-                        line-height: 31px;
+                        height: 0.62rem;
+                        line-height: 0.62rem;
                         position: absolute;
                         bottom: 0;
-                        left: 0px;
+                        left: 0;
                         right: 0;
                         background:rgba(0, 0, 0, 0.3);
                         text-align: center;
@@ -190,14 +204,14 @@ export default {
             .table-cell-box{
                 background-image: url('../style/img/hekeda.png');
                 background-size: 100% 100%;
-                padding-top: 20px;
+                padding-top: 0.4rem;
                 
                 .table-cell-img{
-                    width: 50px;
-                    height: 50px;
+                    width: 1rem;
+                    height: 1rem;
                 }
                 .table-cell-top{
-                    height: 98px;
+                    height: 1.96rem;
                     display: flex;
                         div{
                             text-align: center;
@@ -213,15 +227,15 @@ export default {
             }
         }
         .banner{
-            height: 90.1px;
+            height: 1.8rem;
             .banner-img{
                 width: 100%;
-                height: 90.1px;
+                height: 1.8rem;
             }
         }
         .bottom-link{
             display: flex;
-            height: 165px;
+            height: 3.3rem;
             width: 100%;
             background-image: url('../style/img/tese.png');
             background-size: 100% 100%;

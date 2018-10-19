@@ -22,11 +22,13 @@ export default {
     },
     methods:{
        getData(){
+            this.$store.commit("LOADING",true)
             const querydata = this.$route.query
             this.title = querydata.title
             const newsId = querydata.id
             this.$axios.get('/news/newsContent.do',{newsId}).then(res=>{
                 this.newsData = res.data
+                this.$store.commit("LOADING",false)
                 console.log(res.data)
                 switch(res.data.type){
                     case 0:
@@ -80,10 +82,18 @@ export default {
     .contentRichText{
         padding: 0 0.15rem;
         padding-bottom:0.2rem;
-         h1,h2,h3,h4,h5,h6,p,span{
-        font-weight: 500;
-        font-size: 0.24rem;
-    }
+        h1,h2{
+            font-weight: 700;
+            font-size: 0.4rem;
+         }
+        h3,h4,h5,h6{
+            font-weight: 700;
+            font-size: 0.3rem;
+        }
+        p,span{
+            font-size:0.3rem;
+            font-weight:400
+        }
         img{
             display: block;
             width: 90%;

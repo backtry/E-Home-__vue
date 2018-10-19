@@ -1,6 +1,7 @@
 <template>
-    <div class="bottom-bar">
-            <div class="bottom-bar-item" :class="{active: index == 1}" @click="index = 1">
+    <div class="height-46">
+        <div class="bottom-bar">
+            <div class="bottom-bar-item" :class="{active: this.$route.path=='/home'}">
                 <router-link to="/home">
                     <div class="bgi-box1 mgl-54">
                     </div>
@@ -9,7 +10,7 @@
                     </div>
                 </router-link>
             </div>
-            <div class="bottom-bar-item" :class="{active: index == 2}" @click="index = 2">
+            <div class="bottom-bar-item" :class="{active: this.$route.name=='notice'}">
                 <router-link :to="{path:'/notice',query:{title:'通知早知道',id:'123',type:'2'}}">
                     <div class="bgi-box2 mgl-54">
                     </div>
@@ -18,7 +19,7 @@
                     </div>
                  </router-link>
             </div>
-            <div class="bottom-bar-item" :class="{active: index == 3}" @click="index = 3">
+            <div class="bottom-bar-item" :class="{active: this.$route.name=='personal'}">
                 <router-link to="/personal">
                     <div class="bgi-box3 mgl-54">
                     </div>
@@ -27,19 +28,24 @@
                     </div>
                  </router-link>
             </div>
-        </div>    
+        </div>
+    </div>        
 </template>
 <script>
 export default {
     data() {
         return {
-            index: 1
+           
         }
     }
 }
 </script>
 <style  scoped lang="scss">
+.height-46{
+    height: 0.92rem;
+}
     .bottom-bar{
+        height: 0.92rem;
         position:fixed ;
         bottom: 0;
         left: 0;
@@ -60,25 +66,25 @@ export default {
                 a{
                     color: #999;
                     .mgl-54{
-                        margin-left: 54px;
+                        margin-left: 1.08rem;
                     }
                     .bgi-box1{
-                        width: 20px;
-                        height: 20px;
+                        width: 0.4rem;
+                        height: 0.4rem;
                         background-image: url('../style/img/index/党_grey.png');
-                        background-size: 20px 20px;
+                        background-size: 0.4rem 0.4rem;
                     }
                     .bgi-box2{
-                        width: 20px;
-                        height: 20px;
+                        width: 0.4rem;
+                        height: 0.4rem;
                         background-image: url('../style/img/index/消息_grey.png');
-                        background-size: 20px 20px;
+                        background-size: 0.4rem 0.4rem;
                     }
                     .bgi-box3{
-                        width: 20px;
-                        height: 20px;
+                        width: 0.4rem;
+                        height: 0.4rem;
                         background-image: url('../style/img/index/会员_grey.png');
-                        background-size: 20px 20px;
+                        background-size: 0.4rem 0.4rem;
                     }
                 }
             }
@@ -88,22 +94,22 @@ export default {
             a{
                 color: #ef473a;
                     .bgi-box1{
-                        width: 20px;
-                        height: 20px;
+                        width: 0.4rem;
+                        height: 0.4rem;
                         background-image: url('../style/img/index/党_red.png');
-                        background-size: 20px 20px;
+                        background-size: 0.4rem 0.4rem;
                     }
                     .bgi-box2{
-                        width: 20px;
-                        height: 20px;
+                        width: 0.4rem;
+                        height: 0.4rem;
                         background-image: url('../style/img/index/消息_red.png');
-                        background-size: 20px 20px;
+                        background-size: 0.4rem 0.4rem;
                     }
                     .bgi-box3{
-                        width: 20px;
-                        height: 20px;
+                        width: 0.4rem;
+                        height: 0.4rem;
                         background-image: url('../style/img/index/会员_red.png');
-                        background-size: 20px 20px;
+                        background-size: 0.4rem 0.4rem;
                     }
             }
         

@@ -1,5 +1,8 @@
 <template>
-    <HeaderC :title="title"></HeaderC>    
+    <div>
+        <HeaderC :title="title"></HeaderC>    
+         
+    </div>
 </template>
 <script>
 import axios from 'axios'

@@ -3,19 +3,20 @@
         <!-- <HeaderC ></HeaderC> -->
         <div class="header">
             <div class="return-icon" @click="this.returnLastPage">
-                <img src="../style/img/drawable-hdpi/返回_btn.png">
+                <img src='../style/img/drawable-hdpi/返回_btn.png'>
             </div>
             <span>个人中心</span>
         </div>
         <div class="user-box">
             <div class="avatar-box">
-                <img src='../style/img/hekeda.png' class="avatar">
+                <img :src=" this.$store.state.userData.header" class="avatar" v-if=" this.$store.state.userData.header">
+                <img src="../style/img/hekeda.png" class="avatar" v-else>
             </div>
-            <span>{{username}}你还没登录</span>
+            <span @click="TologinPage">{{userData.username||'你还没登录,请登陆'}}</span>
         </div>
         <div class="personal-methods-box">
             <div class="item">
-                <router-link to="/personal">
+                <router-link :to=" this.$store.state.userData.username ? '/usermassage' : '/login' ">
                 <div class="text-box">
                     <img src="../style/img/person.png" class="icon-l">
                     <span>个人信息</span>
@@ -65,25 +66,39 @@
                 </router-link>
             </div>
         </div>
+        <button class="logout" @click="handleLogout" v-show=" this.$store.state.userData.username">退出登录</button>
     </div>
 </template>
 <script>
+import {mapState} from 'vuex'
 export default {
    data(){
        return{
-           avatar:'',
-           username:''
+           avatar:'../style/img/hekeda.png',
+
        }
-   },
+    },
+    computed:{
+        ...mapState(['userData'])
+    },
    methods:{
        returnLastPage(){
            history.go(-1)
+       },
+       handleLogout(){
+           this.$store.commit("GET_USERDATA",{})
+           localStorage.removeItem("token")
+           this.$router.push('/login')
+       },
+       TologinPage(){
+           this.$router.push('/login')
        }
-   } 
+    }  
 }
 </script>
 <style lang="scss" scoped>
 .personal-box{
+    margin-bottom: 1rem;
     .header{
         background-color: #c50206;
         display: flex;
@@ -175,5 +190,22 @@ export default {
             }
         }
     }
+     .logout{
+        margin: 0 auto ;
+        margin-top: 1.5rem;
+        display: block;
+        width: 6rem;
+        height: 0.84rem;
+        font-size: 0.3rem;
+        background-color: #c50206;
+        border: none;
+        color: #fff;
+        border-radius: 0.1rem;
+        border-width: 0;
+        }
+    .logout:hover{
+        border: 1px solid #c50206;
+        background-color: #e3574f;
+        }
 }
 </style>

@@ -38,9 +38,14 @@ export default {
     },
     methods:{
       getDate(){
+          this.$store.commit("LOADING",true)
           this.$axios.get('/news/newsList.do',this.formData).then(res=>{
-            this.NewsData = res.rows
-            console.log(this.NewsData)
+                if(res.code==1){
+                    this.NewsData = res.rows
+                    console.log(this.NewsData)
+                    this.$store.commit("LOADING",false) 
+                }  
+            
           })
       },
       getTitle(){

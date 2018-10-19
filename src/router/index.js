@@ -63,6 +63,16 @@ export default new Router({
       component:()=>import('../views/cloudInteractive.vue')
     },
     {
+      path:'/usermassage',
+      naem:'usermassage',
+      component:()=>import('../views/user/usermassage.vue')
+    },
+    {
+      path:'/activedetail',
+      name:'activedetail',
+      component:()=>import('../views/activedetail.vue')
+    },
+    {
       path:'/test',
       name:'test',
       meta:{

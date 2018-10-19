@@ -1,12 +1,17 @@
 <template>
   <div id="app">
-    <router-view/>
+    <LoadingM v-if="this.$store.state.isLoading" ></LoadingM>
+    <router-view/> 
   </div>
 </template>
 
 <script>
+
 export default {
-  name: 'App'
+  name: 'App',
+  components:{
+    
+  }
 }
 </script>
 

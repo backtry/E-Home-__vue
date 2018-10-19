@@ -6,10 +6,23 @@ const instance = axios.create({
     timeout: 15000,
 })
 
+
 const xhr = {
     get(url,data,config){
         return new Promise((resolve,reject)=>{
-            instance.get(url,{params:data},config).then(res=>{
+            const token = localStorage.getItem('token')
+            let computedConfig = {
+                ...config
+            }
+            if(token){
+                computedConfig = {
+                    headers: {
+                        'token': token
+                    }
+                }
+            }
+            console.log(computedConfig)
+            instance.get(url,{params:data,...computedConfig}).then(res=>{
                 resolve(res.data)
             }).catch(err=>{
                 reject(err)
@@ -18,7 +31,18 @@ const xhr = {
     },
     fetch(methods,url,data,config){
         return new Promise((resolve,reject)=>{
-            instance[methods](url,data,config).then(res=>{
+            const token = localStorage.getItem('token')
+            let computedConfig = {
+                ...config
+            }
+            if(token){
+                computedConfig = {
+                    headers: {
+                        'token': token
+                    }
+                }
+            }
+            instance[methods](url,data,computedConfig).then(res=>{
                 resolve(res.data)
             }).catch(err=>{
                 reject(err)
