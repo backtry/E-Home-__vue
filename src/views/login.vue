@@ -15,6 +15,8 @@
     </div>    
 </template>
 <script>
+import { Toast } from 'mint-ui';
+import { Indicator } from 'mint-ui';
 export default {
     data(){
         return{
@@ -30,6 +32,10 @@ export default {
            history.go(-1)
         },
         handleLogin(){
+            Indicator.open({
+                text: '加载中...',
+                spinnerType: 'fading-circle'
+                });
             const userLoginData = this.qs.stringify(this.loginData)
             this.$axios.fetch('post',`/user/userLogin.do?${userLoginData}`,{headers:{"Content-Type": "multipart/form-data; boundary=----WebKitFormBoundarylyUpiMBLY6swze2s"}}).then(res=>{
                 if(res.code==1){
@@ -37,6 +43,12 @@ export default {
                     this.$store.commit("GET_USERDATA",res.data)
                     this.returnLastPage()
                     localStorage.setItem('token', res.token)
+                    Indicator.close();
+                    Toast({
+                        message: '登录成功',
+                        iconClass: 'icon icon-success',
+                        duration:1000
+                    });
                 }
             })
         }

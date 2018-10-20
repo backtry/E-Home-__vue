@@ -10,14 +10,15 @@ import $axios from './util/index.js'
 import LoadingM from './components/loading.vue'
 import store from '@/store/index.js'
 import qs from 'qs'
-
+import Mint from 'mint-ui';
+import 'mint-ui/lib/style.css'
 
 
 // require styles
 import 'swiper/dist/css/swiper.css'
 Vue.use(Vuex)
 Vue.use(VueAwesomeSwiper, /* { default global options } */)
-
+Vue.use(Mint);
 
 
 

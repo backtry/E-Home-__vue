@@ -6,7 +6,7 @@
                 <div class="user-message">
                     <div class="flex">
                         <div class="avatar-box">
-                            <img :src="item.header" class="avatar">
+                            <img :src="item.header" class="avatar-active">
                         </div>
                         
                         <div class="user-massage-box">
@@ -34,7 +34,7 @@
         </div>
         <div class="add-talk-button" @click="this.handlerelaase" ></div> 
         <div  class="add-talk-box"  v-if="showInput" >
-            <div @click="this.handleCansel" class="cansel-box" ></div>
+            <div @click="this.handleCansel" class="cansel-box" ref="mask" ></div>
             <div class="container">
                 <textarea type="text" class="input-box" v-model="addActiveUpData.content" ></textarea>
                 <div class="bpttom-btn-box">
@@ -42,11 +42,15 @@
                     <div class="cansel-btn" @click="this.handleCansel">取消</div>
                 </div>
             </div>
+        </div>
+        <div class="edital-bottom-line">
+            <span>我是有底线的,喵~~~</span>
         </div>       
     </div>
 </template>
 
 <script>
+import { Toast } from 'mint-ui';
 export default {
     data(){
         return{
@@ -74,15 +78,22 @@ export default {
             })
         },
         addActive(){
-            this.$axios.fetch('post','/forum/saveForum.do',this.addActiveUpData).then(res=>{
+            const upData = this.qs.stringify(this.addActiveUpData)
+            this.$axios.fetch('post','/forum/saveForum.do',upData).then(res=>{
                 console.log(res)
+                Toast(res.msg);
+                this.handleCansel()
             })
         },
         handlerelaase(){
             this.showInput = true
+            document.documentElement.style.overflow = 'hidden'
+            console.log(this.$refs)
+            this.$refs.mask.addEventListener('touchmove',e=>{e.preventDefault()})
         },
         handleCansel(){
             this.showInput = false
+            document.documentElement.style.overflow = 'auto'
         },
         toActiveDetail(){
             console.log( $event.currentTarget.dataset.link)
@@ -124,7 +135,7 @@ export default {
                     height: 0.67rem;
                     
                     padding-right: 0.1rem;
-                .avatar{
+                .avatar-active{
                     display: block;
                     width: 100%;
                     height: 100%;
@@ -252,7 +263,20 @@ export default {
                 }
             }
         }
-    }   
+    } 
+    .edital-bottom-line{
+            height: 0.7rem;
+            background-color: #eee;
+            span{
+                font-size: 0.3rem;
+                display: block;
+                height: 0.7rem;
+                line-height: 0.5rem;
+                width: 100%;
+                text-align: center;
+                color: #666;
+            }
+        }  
 }
 </style>
 

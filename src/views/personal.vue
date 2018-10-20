@@ -29,7 +29,7 @@
         </div>
         <div class="personal-methods-box">
             <div class="item">
-                <router-link to="/personal">
+                <router-link :to=" this.$store.state.userData.username ? '/integral' : '/login' ">
                 <div class="text-box">
                     <img src="../style/img/lxjf.png" class="icon-l">
                     <span>个人量化积分</span>

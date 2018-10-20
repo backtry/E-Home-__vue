@@ -1,5 +1,5 @@
 <template>
-    <div class="message-edital-box">
+    <div class="message-edital-box"  >
         <HeaderC :title='title'></HeaderC>
             <div class="item" v-for="(item,index) in NewsData" :key="index">
                 <div class="img-box">
@@ -24,6 +24,7 @@
     </div>
 </template>
 <script>
+
 export default {
     data(){
         return{
@@ -34,7 +35,7 @@ export default {
                 rows:10,
                 type:0
             },
-            startX:0
+            startX:0,
         }
     },
     methods:{
@@ -44,6 +45,9 @@ export default {
                 [this.NewsData] = [...this.NewsData,res.rows] 
                 console.log(this.NewsData)
                 this.$store.commit("LOADING",false)
+                this.IsLoadmore = true
+                setTimeout(()=>{
+                },1000)
             })
         },
         getTitle(){
@@ -53,9 +57,9 @@ export default {
             this.title = titleM
             this.formData.type = type
         },
-        
+       
     },
-    watch:{
+    watch:{ 
         
     },
     created(){

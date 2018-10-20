@@ -73,6 +73,11 @@ export default new Router({
       component:()=>import('../views/activedetail.vue')
     },
     {
+      path:'/integral', 
+      name:'integral',
+      component:()=>import('../views/user/userintegral.vue')
+    },
+    {
       path:'/test',
       name:'test',
       meta:{

@@ -21,7 +21,6 @@ const xhr = {
                     }
                 }
             }
-            console.log(computedConfig)
             instance.get(url,{params:data,...computedConfig}).then(res=>{
                 resolve(res.data)
             }).catch(err=>{

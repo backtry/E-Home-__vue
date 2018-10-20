@@ -6,17 +6,18 @@
             <div class="user-box">
                 <div class="user-massage" >
                     <div class="avatar-box">
-                        <img src="../style/cloudInteractive/头像.png" class="avatar">
+                        <img :src="userData.header" class="avatar" v-if="userData.header">
+                        <img src="../style/cloudInteractive/头像.png" class="avatar" v-else>
                     </div>
                     <div class="message">
-                        <span class="username">名字</span>
+                        <span class="username">{{userData.username}}</span>
                         <div class="date-box">
                             <img src="../style/cloudInteractive/时间.png" >
-                            <span class="date">2071564815353</span>
+                            <span class="date">{{userData.currentTime}}</span>
                         </div>
                     </div>
                 </div>
-                <span class="user-talk">我自横刀向天笑。。。。。。。</span>
+                <span class="user-talk">{{userData.content}}</span>
             </div>
             <!-- <div class="answer-box">
                 <div class="item-user-box">
@@ -36,20 +37,21 @@
                 </div>
             </div> -->
             <div class="center-line"></div>
-            <div class="user-box" style="margin:-0.02rem 0 0 0 ; border-top:none; border-left:none; border-right:none ">
+            <div class="user-box answer-box-style" v-for="(item,index) in answerData" :key="index">
                 <div class="user-massage" >
                     <div class="avatar-box">
-                        <img src="../style/cloudInteractive/头像.png" class="avatar">
+                        <img :src="item.header" class="avatar" v-if="item.header">
+                        <img src="../style/cloudInteractive/头像.png" class="avatar" v-else>
                     </div>
                     <div class="message">
-                        <span class="username">名字</span>
+                        <span class="username">{{item.username}}</span>
                         <div class="date-box">
                             <img src="../style/cloudInteractive/时间.png" >
-                            <span class="date">2071564815353</span>
+                            <span class="date">{{item.timeFormat}}</span>
                         </div>
                     </div>
                 </div>
-                <span class="user-talk">我自横刀向天笑。。。。。。。</span>
+                <span class="user-talk">{{item.comment}}</span>
             </div>
         </div>
     </div>    
@@ -58,16 +60,31 @@
 export default {
     data(){
         return{
-
+            userData:{},
+            answerData:[],
+            formData:{
+                page:1,
+                rows:100,
+                forum_id:''
+            }
         }
     },
     methods:{
         getuserData(){
-            console.log(this.$route.query)
+            this.userData = this.$route.query
+            console.log(this.userData)
+        },
+        getanswerData(){
+            this.formData.forum_id = this.userData.forumId
+            this.$axios.get('/forum/forumCommentList.do',this.formData).then(res=>{
+                console.log(res)
+                this.answerData = res.rows
+            })
         }
     },
     created(){
         this.getuserData()
+        this.getanswerData()
     }
 }
 </script>
@@ -75,6 +92,9 @@ export default {
 .activedetail-p-box{
     .activedetail-container{
         background-color: #efeff4;
+        .answer-box-style{
+            margin:-0.02rem 0 0 0 ; border-top:none; border-left:none; border-right:none ;
+        }
         .center-line{
             width: 100%;
             height: 0.03rem;
