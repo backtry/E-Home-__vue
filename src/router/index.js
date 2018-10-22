@@ -78,6 +78,11 @@ export default new Router({
       component:()=>import('../views/user/userintegral.vue')
     },
     {
+      path:'/organiztionfound',
+      name:'organiztionfound',
+      component:()=>import('../views/foundOrganiztion.vue')
+    },
+    {
       path:'/test',
       name:'test',
       meta:{

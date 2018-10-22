@@ -6,6 +6,17 @@ const instance = axios.create({
     timeout: 15000,
 })
 
+// const qs = require('querystring')
+// instance.interceptors.request.use(function (config) {
+//   if (config.method == 'post') {
+//     config.data = qs.stringify(config.data)
+//     config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+//   }
+//   // console.log(config)
+//   return config
+// }, function (error) {
+//   return Promise.reject(error)
+// })
 
 const xhr = {
     get(url,data,config){
@@ -37,7 +48,9 @@ const xhr = {
             if(token){
                 computedConfig = {
                     headers: {
-                        'token': token
+                        'token': token,
+
+
                     }
                 }
             }

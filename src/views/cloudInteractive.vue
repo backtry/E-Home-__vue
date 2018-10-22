@@ -236,6 +236,7 @@ export default {
                 border-color: transparent;
                 overflow: hidden;
                 font-size: 0.5rem;
+                outline: none;
             }
             .bpttom-btn-box{
                

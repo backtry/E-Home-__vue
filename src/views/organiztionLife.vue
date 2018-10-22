@@ -26,10 +26,10 @@
                 <img src="../style/img/icon4.png">
                 <span>民主评议</span>
             </div>
-            <div class="item">
+            <router-link to="/organiztionfound" class="item">
                 <img src="../style/img/icon5.png">
                 <span>流动党员找组织</span>
-            </div>
+            </router-link>
         </div>
     </div>
 </template>
