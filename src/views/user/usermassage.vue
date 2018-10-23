@@ -92,9 +92,11 @@ export default {
     },
     methods:{
         getData(){
+            this.$store.commit('LOADING',true)
             this.$axios.get('/user/userInfo.do' ).then(res=>{
                 console.log(res)
                 this.userData = res.data
+                this.$store.commit('LOADING',false)
             })
         },
         handleedit(){
@@ -110,6 +112,7 @@ export default {
                 console.log(res)
                 if(res.code==1){
                     console.log('edit success')
+                    this.getData()
                 }
             })
         }
@@ -170,6 +173,7 @@ export default {
         }
         .partyIdentity-options{
             border: none;
+            background-color: #fff;
         }
     }
 }

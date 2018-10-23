@@ -2,22 +2,22 @@
   <div class="wrapper">
     <HeaderC :title="'个人量化积分'"></HeaderC>
     <div class="banner-wrap">
-      <img src="">
+      <img src="@/style/userintegral/积分bg.png" >
       <span class="score">{{totalScore}}</span>
     </div>
-    <router-link class="score-detail" to="/">
+    <router-link class="score-detail" to="/intergraldetail">
       <div class="left">
-        <img src="">积分明细
+        <img src="@/style/userintegral/积分明细icon.png">积分明细
       </div>
       <div class="right">
-        <img src="">
+        <img src="../../style/img/right.png">
       </div>
     </router-link>
     <div class="regulation-wrap">
-      <div class="regulation-item">
+      <div class="regulation-item" style="background: rgb(238, 238, 238);">
         <div class="name" style="color: #444">积分规则</div>
         <div class="value">
-          <img src="" style="width:0.4rem;height:0.4rem;">
+          <img src="@/style/userintegral/问号icon.png" style="width:0.4rem;height:0.4rem;">
         </div>
       </div>
       <div class="regulation-item">
@@ -123,12 +123,11 @@ export default {
 <style scoped lang="scss">
 .wrapper {
   .banner-wrap {
-    margin-top: 1rem;
     position: relative;
 
     img {
       display: block;
-      width: 7.2rem;
+      width: 100%;
     }
 
     .score {
@@ -151,6 +150,7 @@ export default {
   padding:0 0.2rem;
   border-bottom: 1px solid #e1e1e1;
   border-top: 1px solid #e1e1e1;
+  font-size: 16px;
 
   .left {
     display:flex;
@@ -188,6 +188,8 @@ export default {
     display: flex;
     align-items: center;
     color: #f00;
+    font-size: 0.3rem;
+
   }
 }
 </style>

@@ -52,7 +52,7 @@ export default {
             text-align: center;
             padding-right: 0.4rem;
             display: block;
-            font-size: 0.4rem;
+            font-size: 0.36rem;
             color: #ffffff;
         }
     }

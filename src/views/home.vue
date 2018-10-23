@@ -2,7 +2,7 @@
     <div class="home-p-box">
         <div class="header">
             <img src="../style/img/logo.png"  class="header-img">
-            <router-link to="/login">登录</router-link>    
+            <router-link to="/login" v-if="!this.$store.state.userData.username">登录</router-link>    
         </div>
         <div class="container-box">
             <swiper :options="swiperOption" class="swiper" >
@@ -60,7 +60,7 @@
                             <span>党员亮身份</span>
                         </div>
                     </router-link>        
-                    <router-link to="/">
+                    <router-link to="/partyoftoday">
                         <img src="../style/img/icon_02.png" class="table-cell-img">
                         <div>
                             <span>党史上的今天</span>

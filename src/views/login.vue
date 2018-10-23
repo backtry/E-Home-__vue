@@ -21,7 +21,7 @@ export default {
     data(){
         return{
             loginData:{
-                id_card:'1001',
+                id_card:'1002',
                 password:'123456'
             },
         }
@@ -37,7 +37,7 @@ export default {
                 spinnerType: 'fading-circle'
                 });
             const userLoginData = this.qs.stringify(this.loginData)
-            this.$axios.fetch('post',`/user/userLogin.do?${userLoginData}`,{headers:{"Content-Type": "multipart/form-data; boundary=----WebKitFormBoundarylyUpiMBLY6swze2s"}}).then(res=>{
+            this.$axios.fetch('post',`/user/userLogin.do?${userLoginData}`).then(res=>{
                 if(res.code==1){
                     console.log(res)
                     this.$store.commit("GET_USERDATA",res.data)

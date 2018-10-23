@@ -83,6 +83,26 @@ export default new Router({
       component:()=>import('../views/foundOrganiztion.vue')
     },
     {
+      path:'/intergraldetail',
+      name:'intergraldetail',
+      component:()=>import('../views/user/intergraldetail.vue')
+    },
+    {
+      path:'/partyoftoday',
+      name:'partyoftoday',
+      component:()=>import('../views/thePartyOfToday.vue')
+    },
+    {
+      path:'/changepassword',
+      name:'changepassword',
+      component:()=>import('../views/user/changepassword.vue')
+    },
+    {
+      path:'/paypartycost',
+      name:'paypartycost',
+      component:()=>import('../views/user/paycost.vue')
+    },
+    {
       path:'/test',
       name:'test',
       meta:{

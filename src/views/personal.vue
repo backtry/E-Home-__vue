@@ -42,7 +42,7 @@
         </div>
         <div class="personal-methods-box">
             <div class="item">
-                <router-link to="/personal">
+                <router-link :to=" this.$store.state.userData.username ? '/changepassword' : '/login' ">
                 <div class="text-box">
                     <img src="../style/img/xgmm.png" class="icon-l">
                     <span>修改密码</span>
@@ -55,7 +55,7 @@
         </div>
         <div class="personal-methods-box">
             <div class="item">
-                <router-link to="/personal">
+                <router-link  :to=" this.$store.state.userData.username ? '/paypartycost' : '/login' ">
                 <div class="text-box">
                     <img src="../style/img/icon3.png" class="icon-l">
                     <span>党费缴纳</span>

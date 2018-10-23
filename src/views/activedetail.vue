@@ -58,7 +58,7 @@
             </div>
             <div class="active-input-box">
                 <label class="item-input-wrapper">
-                    <input type="text" placeholder="评论内容" v-model="commentData.content">
+                    <input type="text" placeholder="评论内容" v-model="commentData.comment">
                 </label>
                 <div class="btn-comment" @click="this.handlecomment">评论</div>
             </div>
@@ -77,7 +77,7 @@ export default {
                 forum_id:''
             },
             commentData:{
-                content:'',
+                comment:'',
                 forum_id:''
             },
         }
@@ -95,9 +95,10 @@ export default {
             })
         },
         handlecomment(){
-            this.commentData.forum_id = this.userData.forum_id
+            this.commentData.forum_id = this.userData.forumId
             this.$axios.fetch('post','/forum/addComment.do',this.commentData).then(res=>{
                 console.log(res)
+                this.commentData.comment = ''
                 this.getanswerData()
             })
         }

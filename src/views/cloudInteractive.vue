@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="add-talk-button" @click="this.handlerelaase" ></div> 
-        <div  class="add-talk-box"  v-if="showInput" >
+        <div  class="add-talk-box"  v-if="showInput" @click.stop>
             <div @click="this.handleCansel" class="cansel-box" ref="mask" ></div>
             <div class="container">
                 <textarea type="text" class="input-box" v-model="addActiveUpData.content" ></textarea>
@@ -78,22 +78,23 @@ export default {
             })
         },
         addActive(){
-            const upData = this.qs.stringify(this.addActiveUpData)
-            this.$axios.fetch('post','/forum/saveForum.do',upData).then(res=>{
+            
+            this.$axios.fetch('post','/forum/saveForum.do',this.addActiveUpData).then(res=>{
                 console.log(res)
                 Toast(res.msg);
+                this.getData()
                 this.handleCansel()
             })
         },
         handlerelaase(){
             this.showInput = true
-            document.documentElement.style.overflow = 'hidden'
-            console.log(this.$refs)
-            this.$refs.mask.addEventListener('touchmove',e=>{e.preventDefault()})
+            // document.documentElement.style.overflow = 'hidden'
+            // console.log(this.$refs)
+            // this.$refs.mask.addEventListener('touchmove',e=>{e.preventDefault()})
         },
         handleCansel(){
             this.showInput = false
-            document.documentElement.style.overflow = 'auto'
+            // document.documentElement.style.overflow = 'auto'
         },
         toActiveDetail(){
             console.log( $event.currentTarget.dataset.link)

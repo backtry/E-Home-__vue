@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { resolve } from 'url';
+import qs from 'qs'
 
 const instance = axios.create({
     baseURL: 'http://211.67.177.56:8080/hhdj',
@@ -49,11 +50,10 @@ const xhr = {
                 computedConfig = {
                     headers: {
                         'token': token,
-
-
                     }
                 }
             }
+            data = qs.stringify(data)
             instance[methods](url,data,computedConfig).then(res=>{
                 resolve(res.data)
             }).catch(err=>{
